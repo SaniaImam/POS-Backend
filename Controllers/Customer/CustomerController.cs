@@ -19,8 +19,7 @@ public class CustomerController : ControllerBase
     [HttpPost("GetCustomers")]
     public async Task<IActionResult> GetCustomers()
     {
-        var customers =
-            await _customerService.GetCustomersAsync();
+        var customers = await _customerService.GetCustomersAsync();
 
         return Ok(customers);
     }
@@ -50,16 +49,24 @@ public class CustomerController : ControllerBase
 
     [HttpPost("UpdateCustomer/{id}")]
     public async Task<IActionResult> UpdateCustomer(
-        int id,
-        UpdateCustomerRequest request)
+     int id,
+     UpdateCustomerRequest request)
     {
-        int rowsAffected =
+        int result =
             await _customerService.UpdateCustomerAsync(
                 id,
                 request
             );
 
-        if (rowsAffected == 0)
+        if (result == -1)
+        {
+            return BadRequest(new
+            {
+                message = "A customer with this phone number already exists."
+            });
+        }
+
+        if (result == -2)
         {
             return NotFound("Customer not found.");
         }

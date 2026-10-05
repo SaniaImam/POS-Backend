@@ -119,9 +119,9 @@ public class CustomerRepository : ICustomerRepository
     }
 
     public async Task<int> UpdateCustomerAsync(
-        int id,
-        UpdateCustomerRequest request
-    )
+    int id,
+    UpdateCustomerRequest request
+)
     {
         using SqlConnection connection =
             await _databaseHelper.OpenConnectionAsync();
@@ -140,7 +140,17 @@ public class CustomerRepository : ICustomerRepository
             request.Email ?? (object)DBNull.Value
         );
 
-        return await command.ExecuteNonQueryAsync();
+        var returnParameter = command.Parameters.Add(
+            "@ReturnValue",
+            System.Data.SqlDbType.Int
+        );
+
+        returnParameter.Direction =
+            System.Data.ParameterDirection.ReturnValue;
+
+        await command.ExecuteNonQueryAsync();
+
+        return (int)returnParameter.Value;
     }
 
     public async Task<int> DeleteCustomerAsync(int id)
