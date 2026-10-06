@@ -1,6 +1,8 @@
 using POS.Repository;
+using POS.Repository.Category;
 using POS.Repository.Customer;
 using POS.Repository.Item;
+using POS.Services.Category;
 using POS.Services.Customer;
 using POS.Services.Item;
 
@@ -28,6 +30,9 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IItemService, ItemService>();
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -6,6 +6,7 @@ public class GetItemResponse
     public string? ItemCode { get; set; }
     public string? ItemName { get; set; }
     public string? CategoryName { get; set; }
+    public int CategoryId { get; set; }
     public decimal Price { get; set; }
 }
 

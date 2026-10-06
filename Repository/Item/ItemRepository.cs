@@ -31,6 +31,7 @@ public class ItemRepository : IItemRepository
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                 ItemCode = reader["ItemCode"]?.ToString(),
                 ItemName = reader["ItemName"]?.ToString(),
+                CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                 CategoryName = reader["CategoryName"]?.ToString(),
                 Price = reader.GetDecimal(reader.GetOrdinal("Price"))
             });
